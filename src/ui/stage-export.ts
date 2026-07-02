@@ -26,8 +26,8 @@ export function renderExport(ctx: Ctx): HTMLElement {
   };
 
   const warnings: (Node | string)[] = [];
-  if (emptyCount > 0) warnings.push(el("li", {}, [`빈 가사 cue ${emptyCount}개`]));
-  if (overlapCount > 0) warnings.push(el("li", {}, [`겹치는 cue ${overlapCount}개`]));
+  if (emptyCount > 0) warnings.push(el("li", { class: "warn" }, [`빈 가사 cue ${emptyCount}개`]));
+  if (overlapCount > 0) warnings.push(el("li", { class: "warn" }, [`겹치는 cue ${overlapCount}개`]));
   if (warnings.length === 0) warnings.push(el("li", { class: "ok" }, ["문제 없음"]));
 
   return el("section", {}, [
