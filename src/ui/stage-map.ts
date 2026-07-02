@@ -77,7 +77,7 @@ export function renderMap(ctx: Ctx): HTMLElement {
       el("span", {}, [""]),
     ]),
     el("div", { class: "cue-list" }, rows.length ? rows : [el("p", { class: "hint" }, ["cue가 없습니다. 캡처 단계에서 탭하세요."])]),
-    overlaps.size ? el("p", { class: "warn" }, [`겹치는 cue ${overlaps.size}개(빨강). start/duration을 조정하세요.`]) : "",
+    overlaps.size ? el("p", { class: "warn" }, [`겹치는 cue ${overlaps.size}개(노랑). start/duration을 조정하세요.`]) : "",
     el("div", { class: "actions" }, [
       el("button", { onclick: () => ctx.go("capture") }, ["← 캡처"]),
       el("button", { class: "primary", onclick: () => ctx.go("export") }, ["다음: Export →"]),
