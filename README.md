@@ -71,8 +71,9 @@ src/
 ## 현재 상태
 
 - ✅ `core` 로직 (cues · schema · tokenize) — TDD 완료, 17개 테스트 통과.
-- ⬜ UI 레이어 (setup / capture / map / export 단계) — 개발 예정.
-- ⬜ 단일 HTML 빌드 산출물 검증.
+- ✅ UI 레이어 (setup / capture / map / export 4단계) — 구현 완료.
+- ✅ 단일 HTML 빌드 (`dist/index.html`, JS/CSS 전부 인라인) 검증.
+- ⬜ 브라우저 E2E 스모크 테스트.
 
 ## 라이선스
 
