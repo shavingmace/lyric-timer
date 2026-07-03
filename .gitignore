@@ -4,3 +4,4 @@ whiteboard/
 *.log
 .DS_Store
 node-compile-cache/
+*.png
