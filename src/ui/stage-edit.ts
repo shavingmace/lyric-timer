@@ -92,14 +92,11 @@ export function renderEdit(ctx: Ctx): HTMLElement {
   };
   rafId = requestAnimationFrame(loop);
 
+  // cleanup은 매 rerender마다 실행됨 → 렌더별 자원(rAF·리스너)만 해제.
+  // 타이머/오디오 재생 상태는 모듈 레벨로 유지해 탭 후에도 계속 흐르게 둔다.
   ctx.registerCleanup(() => {
     document.removeEventListener("keydown", onKey);
     cancelAnimationFrame(rafId);
-    if (audioEl) audioEl.pause();
-    if (timer.running) {
-      timer.acc = timerElapsed();
-      timer.running = false;
-    }
   });
 
   // 전송 컨트롤
