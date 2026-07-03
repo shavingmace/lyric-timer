@@ -151,7 +151,9 @@ export function renderEdit(ctx: Ctx): HTMLElement {
     const textInput = el("input", { type: "text", value: cue.text, placeholder: "가사 조각", oninput: (e) => (cue.text = (e.target as HTMLInputElement).value) });
     const del = el("button", { onclick: () => { state.cueList = { ...state.cueList, cues: state.cueList.cues.filter((c) => c.id !== cue.id).map((c, i) => ({ ...c, index: i })) }; ctx.rerender(); } }, ["✕"]);
     const cls = cue.id === selectedId ? "cue-row selected" : overlaps.has(cue.id) ? "cue-row overlap" : "cue-row";
-    const row = el("div", { class: cls, onclick: () => { selectedId = cue.id; ctx.rerender(); } }, [
+    // 행 클릭 선택은 없음: input 클릭이 rerender를 유발해 포커스를 잃던 버그의 원인.
+    // 선택/하이라이트는 타임라인 마커 클릭이 담당한다.
+    const row = el("div", { class: cls }, [
       el("span", { class: "idx" }, [String(cue.index)]), startInput, durInput, textInput, del,
     ]);
     if (cue.id === selectedId) { selectedRow = row; selectedText = textInput; }
