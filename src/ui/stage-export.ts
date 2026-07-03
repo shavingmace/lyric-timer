@@ -39,7 +39,7 @@ export function renderExport(ctx: Ctx): HTMLElement {
     el("div", { class: "actions" }, [
       el("button", { class: "primary", onclick: download }, ["JSON 다운로드"]),
       el("button", { onclick: () => void copy() }, ["클립보드 복사"]),
-      el("button", { onclick: () => ctx.go("map") }, ["← 매핑"]),
+      el("button", { onclick: () => ctx.go("edit") }, ["← 캡처+편집"]),
     ]),
     el("pre", { class: "json" }, [json]),
   ]);

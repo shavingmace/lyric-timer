@@ -1,7 +1,6 @@
 import { createInitialState, type Ctx, type Stage } from "./state";
 import { renderSetup } from "./ui/stage-setup";
-import { renderCapture } from "./ui/stage-capture";
-import { renderMap } from "./ui/stage-map";
+import { renderEdit } from "./ui/stage-edit";
 import { renderExport } from "./ui/stage-export";
 import { el } from "./ui/dom";
 import "./style.css";
@@ -11,15 +10,13 @@ let cleanups: (() => void)[] = [];
 
 const STAGES: { key: Stage; label: string }[] = [
   { key: "setup", label: "설정" },
-  { key: "capture", label: "캡처" },
-  { key: "map", label: "매핑" },
+  { key: "edit", label: "캡처+편집" },
   { key: "export", label: "Export" },
 ];
 
 const RENDERERS: Record<Stage, (ctx: Ctx) => HTMLElement> = {
   setup: renderSetup,
-  capture: renderCapture,
-  map: renderMap,
+  edit: renderEdit,
   export: renderExport,
 };
 

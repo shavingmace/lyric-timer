@@ -1,7 +1,7 @@
 import { createCueList, type CueList } from "./core/cues";
 import type { ProjectMeta } from "./core/schema";
 
-export type Stage = "setup" | "capture" | "map" | "export";
+export type Stage = "setup" | "edit" | "export";
 
 // 런타임 오디오 상태 (직렬화되지 않음)
 export interface AudioState {

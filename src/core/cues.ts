@@ -59,6 +59,12 @@ export function undoLast(list: CueList): CueList {
   return { ...list, cues };
 }
 
+// t 이후(start >= t)의 cue를 제거하고 index 재계산. seq는 유지(새 id 계속 증가).
+export function truncateFrom(list: CueList, t: number): CueList {
+  const cues = reindex(list.cues.filter((c) => c.start < t));
+  return { ...list, cues };
+}
+
 // 이전 cue의 끝(start+duration)보다 먼저 시작하는 cue id 목록 (정렬된 입력 기준)
 export function detectOverlaps(list: CueList): string[] {
   const overlaps: string[] = [];

@@ -5,6 +5,7 @@ import {
   sortCues,
   undoLast,
   detectOverlaps,
+  truncateFrom,
 } from "../src/core/cues";
 
 describe("core/cues", () => {
@@ -66,5 +67,22 @@ describe("core/cues", () => {
     list = addCue(list, 2.0, 1.0); // 겹침 아님
     const overlaps = detectOverlaps(sortCues(list));
     expect(overlaps).toEqual([list.cues[1].id]);
+  });
+
+  it("truncateFrom: start >= t 제거, index 재계산, seq 불변", () => {
+    let list = addCue(createCueList(), 1.0, 0.5);
+    list = addCue(list, 2.0, 0.5);
+    list = addCue(list, 3.0, 0.5);
+    const after = truncateFrom(sortCues(list), 2.0);
+    expect(after.cues.map((c) => c.start)).toEqual([1.0]);
+    expect(after.cues[0].index).toBe(0);
+    expect(after.seq).toBe(3); // 새 id 계속 증가하도록 seq 유지
+  });
+
+  it("truncateFrom: t가 모든 start보다 크면 변화 없음", () => {
+    let list = addCue(createCueList(), 1.0, 0.5);
+    list = addCue(list, 2.0, 0.5);
+    const after = truncateFrom(list, 5.0);
+    expect(after.cues).toHaveLength(2);
   });
 });

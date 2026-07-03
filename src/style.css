@@ -98,6 +98,37 @@ button.primary { background: var(--accent); color: #0b0d12; border-color: var(--
 .cue-head { color: var(--muted); font-size: 0.8rem; margin: 0.5rem 0; }
 .cue-row { margin: 0.3rem 0; }
 .cue-row.overlap input { border-color: var(--warn); }
+.cue-row.selected { outline: 2px solid var(--accent); border-radius: 6px; }
+
+.timeline {
+  position: relative;
+  height: 44px;
+  margin: 0.8rem 0;
+  background: #0d0f14;
+  border: 1px solid #333846;
+  border-radius: 8px;
+  cursor: crosshair;
+  overflow: hidden;
+}
+.marker {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  margin-left: -1px;
+  background: var(--accent);
+  cursor: pointer;
+}
+.marker.overlap { background: var(--warn); }
+.marker.selected { background: #fff; width: 5px; box-shadow: 0 0 6px var(--accent); }
+.playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--ok);
+  pointer-events: none;
+}
 .cue-list { max-height: 45vh; overflow-y: auto; }
 .idx { color: var(--muted); font-size: 0.8rem; text-align: right; }
 

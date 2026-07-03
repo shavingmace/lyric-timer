@@ -25,3 +25,20 @@ Spec: `whiteboard/2026-07-02-1754_lyric-timer-spec.md`
 - [x] distribute(tokens, cues): 개수 일치 → 각 cue.text 채움
 - [x] distribute: 토큰이 더 많음 → 남는 토큰 목록 함께 반환(경고)
 - [x] distribute: 토큰이 더 적음 → 빈 cue 개수 함께 반환(경고)
+
+## timeline 통합 편집 (v2)
+
+캡처+매핑을 한 stage로 통합. 매핑의 가사조각 목록(start/duration/text 입력 행)을
+재사용하므로 신규 순수 로직은 truncateFrom 하나뿐. 나머지는 UI 배선.
+
+### core/cues (TDD)
+- [x] truncateFrom(list, t): start >= t 인 cue 제거, index 재계산, id/seq 불변
+- [x] truncateFrom: t가 모든 cue의 start보다 큼 → 변화 없음
+
+### UI (브라우저 스모크로 검증, 유닛 테스트 없음)
+- [ ] stage 통합: setup → edit(타임라인+목록) → export (기존 capture/map 병합)
+- [ ] 타임라인 바: cue 마커(start 위치) + playhead(elapsed)
+- [ ] 마커 클릭 → 해당 목록 행으로 스크롤 + 하이라이트 + text input 포커스
+- [ ] 재캡처 모드 토글(overwrite=truncateFrom / insert=append+sort)
+- [ ] "여기서 재캡처": 바 클릭 위치로 seek(오디오)/타이머 재시작, overwrite면 truncate
+- [ ] 무오디오: timelineDuration = max(마지막 cue 끝, 현재 elapsed) 로 스케일

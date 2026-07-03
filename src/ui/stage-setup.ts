@@ -24,7 +24,7 @@ async function importJson(ctx: Ctx, file: File): Promise<void> {
     const restored = parse(doc);
     ctx.state.meta = restored.meta;
     ctx.state.cueList = restored.cueList;
-    ctx.go("map");
+    ctx.go("edit");
   } catch (err) {
     alert(`import 실패: ${(err as Error).message}`);
   }
@@ -94,8 +94,8 @@ export function renderSetup(ctx: Ctx): HTMLElement {
     el("p", { class: "hint" }, [audioStatus]),
     el("label", {}, ["기존 JSON 불러오기 (선택)", jsonInput]),
     el("div", { class: "actions" }, [
-      el("button", { class: "primary", onclick: () => ctx.go("capture") }, [
-        "다음: 캡처 →",
+      el("button", { class: "primary", onclick: () => ctx.go("edit") }, [
+        "다음: 캡처+편집 →",
       ]),
     ]),
   ]);
