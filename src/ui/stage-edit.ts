@@ -62,6 +62,7 @@ export function renderEdit(ctx: Ctx): HTMLElement {
   const markers = state.cueList.cues.map((cue) =>
     el("div", {
       class: cue.id === selectedId ? "marker selected" : overlaps.has(cue.id) ? "marker overlap" : "marker",
+      "data-id": cue.id,
       style: `left:${(cue.start / timelineDuration()) * 100}%`,
       title: `${fmtTime(cue.start)} ${cue.text}`,
       onclick: (e) => {
@@ -142,6 +143,14 @@ export function renderEdit(ctx: Ctx): HTMLElement {
     ctx.rerender();
   };
 
+  // input 포커스 시 rerender 없이 class만 토글 → 입력 유지 + 마커 하이라이트
+  const highlight = (id: string, rowEl: HTMLElement): void => {
+    selectedId = id;
+    document.querySelectorAll(".marker.selected, .cue-row.selected").forEach((e) => e.classList.remove("selected"));
+    document.querySelector(`.marker[data-id="${id}"]`)?.classList.add("selected");
+    rowEl.classList.add("selected");
+  };
+
   // 가사조각 목록 (매핑에서 이관, 선택 하이라이트 추가)
   let selectedRow: HTMLElement | null = null;
   let selectedText: HTMLInputElement | null = null;
@@ -153,7 +162,11 @@ export function renderEdit(ctx: Ctx): HTMLElement {
     const cls = cue.id === selectedId ? "cue-row selected" : overlaps.has(cue.id) ? "cue-row overlap" : "cue-row";
     // 행 클릭 선택은 없음: input 클릭이 rerender를 유발해 포커스를 잃던 버그의 원인.
     // 선택/하이라이트는 타임라인 마커 클릭이 담당한다.
-    const row = el("div", { class: cls }, [
+    const row = el("div", {
+      class: cls,
+      "data-id": cue.id,
+      onfocusin: (e) => highlight(cue.id, e.currentTarget as HTMLElement),
+    }, [
       el("span", { class: "idx" }, [String(cue.index)]), startInput, durInput, textInput, del,
     ]);
     if (cue.id === selectedId) { selectedRow = row; selectedText = textInput; }
